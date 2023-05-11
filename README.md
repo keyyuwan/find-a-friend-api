@@ -14,7 +14,7 @@ API para adoção de animais utilizando conceitos SOLID e testes.
 
 - [x] Deve ser possível se cadastrar como uma ORG
 
-- [ ] Deve ser possível realizar login como uma ORG
+- [x] Deve ser possível realizar login como uma ORG
 
 ## 📃 Regras de negócio
 
