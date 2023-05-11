@@ -7,6 +7,54 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Age {
+  PUPPY
+  ADULT
+}
+
+enum Size {
+  SMALL
+  MEDIUM
+  BIG
+}
+
+enum EnergyLevel {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum IndependenceLevel {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum Environment {
+  SMALL
+  WIDE
+}
+
+model Pet {
+  id                    String            @id @default(uuid())
+  name                  String
+  about                 String?
+  age                   Age
+  size                  Size
+  energy_level          EnergyLevel
+  independence_level    IndependenceLevel
+  environment           Environment
+  images_url            String[]
+  adoption_requirements String[]
+
+  created_at DateTime @default(now())
+
+  Org    Org    @relation(fields: [org_id], references: [id])
+  org_id String
+
+  @@map("pets")
+}
+
 model Org {
   id            String @id @default(uuid())
   name          String
@@ -17,6 +65,8 @@ model Org {
   password_hash String
 
   created_at DateTime @default(now())
+
+  Pet Pet[]
 
   @@map("orgs")
 }
