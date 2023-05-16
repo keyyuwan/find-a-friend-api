@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto'
-import { Prisma, Pet } from '@prisma/client'
+import { Pet, Prisma } from '@prisma/client'
 import { PetsRepository } from '../pets-repository'
 
 export class InMemoryPetsRepository implements PetsRepository {
@@ -14,11 +14,10 @@ export class InMemoryPetsRepository implements PetsRepository {
       size: data.size,
       energy_level: data.energy_level,
       independence_level: data.independence_level,
-      environment: data.environment,
-      images_url: data.images_url as string[],
-      adoption_requirements: data.adoption_requirements as string[],
-      created_at: new Date(),
+      type: data.type,
+      city: data.city,
       org_id: data.org_id,
+      created_at: new Date(),
     }
 
     this.items.push(pet)

@@ -7,54 +7,6 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-enum Age {
-  PUPPY
-  ADULT
-}
-
-enum Size {
-  SMALL
-  MEDIUM
-  BIG
-}
-
-enum EnergyLevel {
-  LOW
-  MEDIUM
-  HIGH
-}
-
-enum IndependenceLevel {
-  LOW
-  MEDIUM
-  HIGH
-}
-
-enum Environment {
-  SMALL
-  WIDE
-}
-
-model Pet {
-  id                    String            @id @default(uuid())
-  name                  String
-  about                 String?
-  age                   Age
-  size                  Size
-  energy_level          EnergyLevel
-  independence_level    IndependenceLevel
-  environment           Environment
-  images_url            String[]
-  adoption_requirements String[]
-
-  created_at DateTime @default(now())
-
-  Org    Org    @relation(fields: [org_id], references: [id])
-  org_id String
-
-  @@map("pets")
-}
-
 model Org {
   id            String @id @default(uuid())
   name          String
@@ -69,4 +21,44 @@ model Org {
   Pet Pet[]
 
   @@map("orgs")
+}
+
+model Pet {
+  id                 String  @id @default(uuid())
+  name               String
+  about              String?
+  age                String
+  size               String
+  energy_level       String
+  independence_level String
+  type               String
+  city               String
+
+  created_at DateTime @default(now())
+
+  Org    Org    @relation(fields: [org_id], references: [id])
+  org_id String
+
+  PetGallery          PetGallery[]
+  AdoptionRequirement AdoptionRequirement[]
+
+  @@map("pets")
+}
+
+model PetGallery {
+  id     String @id @default(uuid())
+  image  String
+  pet    Pet    @relation(fields: [pet_id], references: [id])
+  pet_id String
+
+  @@map("pets_gallery")
+}
+
+model AdoptionRequirement {
+  id          String @id @default(uuid())
+  requirement String
+  pet         Pet    @relation(fields: [pet_id], references: [id])
+  pet_id      String
+
+  @@map("adoption_requirements")
 }

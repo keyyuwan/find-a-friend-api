@@ -30,13 +30,12 @@ describe('Get Pet Details Use Case', () => {
       name: 'Alfredo',
       about:
         'Eu sou um lindo doguinho de 3 anos, um jovem bricalhão que adora fazer companhia, uma bagunça mas também ama uma soneca.',
-      age: 'PUPPY',
-      size: 'SMALL',
-      energy_level: 'HIGH',
-      independence_level: 'MEDIUM',
-      environment: 'WIDE',
-      images_url: ['https://gitbub.com/keyyuwan.png'],
-      adoption_requirements: ['Local grande para o animal correr e brincar.'],
+      age: 'puppy',
+      size: 'small',
+      energy_level: 'high',
+      independence_level: 'medium',
+      type: 'dog',
+      city: 'Curitiba',
       org_id: org.id,
     })
 
