@@ -1,6 +1,7 @@
 import { randomUUID } from 'node:crypto'
 import { Pet, Prisma } from '@prisma/client'
 import { PetsRepository } from '../pets-repository'
+import { PetFilterQuery } from '@/utils/pet-filter-types'
 
 export class InMemoryPetsRepository implements PetsRepository {
   public items: Pet[] = []
@@ -33,5 +34,24 @@ export class InMemoryPetsRepository implements PetsRepository {
     }
 
     return pet
+  }
+
+  async findManyByCityOnQuery(city: string, query?: PetFilterQuery) {
+    const petsByCity = this.items.filter((item) => item.city === city)
+
+    if (!query) {
+      return petsByCity
+    }
+
+    return petsByCity.filter((item) => {
+      for (const key in query) {
+        // @ts-ignore
+        if (item[key] !== query[key]) {
+          return false
+        }
+      }
+
+      return true
+    })
   }
 }
