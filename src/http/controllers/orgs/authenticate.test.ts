@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest'
-import supertest from 'supertest'
+import request from 'supertest'
 import { app } from '@/app'
 
 describe('Authenticate (e2e)', () => {
@@ -12,7 +12,7 @@ describe('Authenticate (e2e)', () => {
   })
 
   it('should be able to authenticate', async () => {
-    await supertest(app.server).post('/orgs').send({
+    await request(app.server).post('/orgs').send({
       name: 'Node.js Org',
       email: 'node@org.com',
       cep: '80540-220',
@@ -22,7 +22,7 @@ describe('Authenticate (e2e)', () => {
       confirmPassword: '123456',
     })
 
-    const response = await supertest(app.server).post('/sessions').send({
+    const response = await request(app.server).post('/sessions').send({
       email: 'node@org.com',
       password: '123456',
     })

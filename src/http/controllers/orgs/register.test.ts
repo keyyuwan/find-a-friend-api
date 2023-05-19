@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest'
-import supertest from 'supertest'
+import request from 'supertest'
 import { app } from '@/app'
 
 describe('Register (e2e)', () => {
@@ -12,7 +12,7 @@ describe('Register (e2e)', () => {
   })
 
   it('should be able to register an org', async () => {
-    const response = await supertest(app.server).post('/orgs').send({
+    const response = await request(app.server).post('/orgs').send({
       name: 'Node.js Org',
       email: 'node@org.com',
       cep: '80540-220',

@@ -14,6 +14,7 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
     type: z.enum(['dog', 'cat']),
     images: z.string(),
     adoptionRequirements: z.string(),
+    orgId: z.string().uuid(),
   })
 
   const createPetData = createPetBodySchema.parse(request.body)
@@ -25,7 +26,7 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
       ...createPetData,
       images: JSON.parse(createPetData.images),
       adoptionRequirements: JSON.parse(createPetData.adoptionRequirements),
-      orgId: '84a7c485-a338-4ba8-8023-c26b42ef0beb',
+      orgId: createPetData.orgId,
     })
 
     return reply.status(201).send()
