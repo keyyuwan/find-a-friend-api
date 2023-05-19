@@ -7,8 +7,8 @@ export async function filtered(request: FastifyRequest, reply: FastifyReply) {
     city: z.string(),
     age: z.enum(['puppy', 'adult']).optional(),
     size: z.enum(['small', 'medium', 'big']).optional(),
-    energyLevel: z.enum(['low', 'medium', 'high']).optional(),
-    independenceLevel: z.enum(['low', 'medium', 'high']).optional(),
+    energy_level: z.enum(['low', 'medium', 'high']).optional(),
+    independence_level: z.enum(['low', 'medium', 'high']).optional(),
     type: z.enum(['dog', 'cat']).optional(),
   })
 
