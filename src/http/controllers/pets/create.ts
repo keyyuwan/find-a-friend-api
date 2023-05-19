@@ -14,7 +14,6 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
     type: z.enum(['dog', 'cat']),
     images: z.string(),
     adoptionRequirements: z.string(),
-    orgId: z.string().uuid(),
   })
 
   const createPetData = createPetBodySchema.parse(request.body)
@@ -22,14 +21,16 @@ export async function create(request: FastifyRequest, reply: FastifyReply) {
   try {
     const createPetUseCase = makeCreatePetUseCase()
 
-    await createPetUseCase.execute({
+    const { pet } = await createPetUseCase.execute({
       ...createPetData,
       images: JSON.parse(createPetData.images),
       adoptionRequirements: JSON.parse(createPetData.adoptionRequirements),
-      orgId: createPetData.orgId,
+      orgId: request.user.sub,
     })
 
-    return reply.status(201).send()
+    return reply.status(201).send({
+      pet,
+    })
   } catch (err) {
     if (err instanceof OrgDoesNotExistsError) {
       return reply.status(400).send({ message: err.message })
